@@ -117,7 +117,7 @@ const App: React.FC = () => {
               جرب الأداة مجاناً ✨
             </button>
             <button 
-               onClick={() => document.getElementById('features')?.scrollIntoView({behavior: 'smooth'})}
+               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({behavior: 'smooth'})}
                className="px-8 py-4 bg-slate-800/50 hover:bg-slate-800 text-white font-medium rounded-2xl text-lg border border-slate-700 transition-all backdrop-blur-md"
             >
               كيف يعمل؟
@@ -331,8 +331,53 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* HOW IT WORKS SECTION */}
+      <section id="how-it-works" className="py-20 px-4 md:px-8 bg-surface/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">كيف يعمل؟</h2>
+             <p className="text-slate-400 text-lg max-w-2xl mx-auto">ثلاث خطوات بسيطة تفصلك عن تصميم أحلامك</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+             {/* Connecting Line (Desktop) */}
+             <div className="hidden md:block absolute top-12 right-1/6 left-1/6 h-0.5 bg-gradient-to-l from-primary/0 via-primary/30 to-primary/0 z-0"></div>
+
+             {/* Step 1 */}
+             <div className="relative z-10 flex flex-col items-center text-center">
+               <div className="w-24 h-24 rounded-3xl bg-slate-800 border border-slate-700 shadow-xl flex items-center justify-center text-4xl mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
+                 <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                 📤
+               </div>
+               <h3 className="text-xl font-bold text-white mb-2">1. ارفع شعارك</h3>
+               <p className="text-slate-400 px-4">قم برفع صورة الشعار (PNG أو JPG) بجودة عالية.</p>
+             </div>
+
+             {/* Step 2 */}
+             <div className="relative z-10 flex flex-col items-center text-center">
+               <div className="w-24 h-24 rounded-3xl bg-slate-800 border border-slate-700 shadow-xl flex items-center justify-center text-4xl mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
+                 <div className="absolute inset-0 bg-secondary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                 🎨
+               </div>
+               <h3 className="text-xl font-bold text-white mb-2">2. اختر النمط</h3>
+               <p className="text-slate-400 px-4">اختر من بين 12 قالب احترافي (معدن، خشب، نيون، والمزيد).</p>
+             </div>
+
+             {/* Step 3 */}
+             <div className="relative z-10 flex flex-col items-center text-center">
+               <div className="w-24 h-24 rounded-3xl bg-slate-800 border border-slate-700 shadow-xl flex items-center justify-center text-4xl mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
+                 <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                 ✨
+               </div>
+               <h3 className="text-xl font-bold text-white mb-2">3. توليد فوري</h3>
+               <p className="text-slate-400 px-4">دع الذكاء الاصطناعي يعالج الإضاءة والظلال ويخرج لك النتيجة.</p>
+             </div>
+          </div>
+        </div>
+      </section>
+
       {/* FEATURES SECTION (SEO Rich) */}
-      <section id="features" className="py-20 px-4 md:px-8 bg-surface/50 border-y border-white/5">
+      <section id="features" className="py-20 px-4 md:px-8 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">لماذا هذه الأداة هي الأفضل؟</h2>
@@ -340,17 +385,17 @@ const App: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-primary/30 transition-colors">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-primary/30 transition-colors hover:bg-white/10">
               <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center text-3xl mb-6">🚀</div>
               <h3 className="text-xl font-bold text-white mb-3">سرعة فائقة</h3>
               <p className="text-slate-400 leading-relaxed">احصل على تصميمات معقدة وموك-أب احترافي في ثوانٍ معدودة بدلاً من ساعات العمل على برامج التصميم.</p>
             </div>
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-secondary/30 transition-colors">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-secondary/30 transition-colors hover:bg-white/10">
               <div className="w-14 h-14 rounded-2xl bg-secondary/20 flex items-center justify-center text-3xl mb-6">💎</div>
               <h3 className="text-xl font-bold text-white mb-3">جودة 4K</h3>
               <p className="text-slate-400 leading-relaxed">نقوم بتوليد صور عالية الدقة تصلح للطباعة، العرض على الشاشات الكبيرة، والاستخدام التجاري.</p>
             </div>
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-accent/30 transition-colors">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-accent/30 transition-colors hover:bg-white/10">
               <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-6">🧠</div>
               <h3 className="text-xl font-bold text-white mb-3">ذكاء اصطناعي</h3>
               <p className="text-slate-400 leading-relaxed">يفهم النموذج سياق الشعار، الخامة المطلوبة (ذهب، خشب، نيون) ويطبق الإضاءة والظلال بفيزيائية دقيقة.</p>
@@ -364,17 +409,29 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">معرض الأعمال</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
                <img src="https://img.freepik.com/free-psd/3d-logo-mockup-modern-building_145275-236.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 1" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                 <span className="text-white text-sm font-bold">واجهات مباني</span>
+               </div>
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
                <img src="https://img.freepik.com/free-psd/luxurious-metallic-logo-mockup_145275-385.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 2" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                 <span className="text-white text-sm font-bold">معدن فاخر</span>
+               </div>
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
                <img src="https://img.freepik.com/free-psd/embossed-paper-logo-mockup_145275-181.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 3" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                 <span className="text-white text-sm font-bold">مطبوعات ورقية</span>
+               </div>
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
                <img src="https://img.freepik.com/free-psd/3d-glass-window-logo-mockup_125540-545.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 4" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                 <span className="text-white text-sm font-bold">زجاج وإضاءة</span>
+               </div>
             </div>
           </div>
           <p className="text-center text-slate-500 mt-6 text-sm">نماذج تم إنشاؤها باستخدام تقنيات مماثلة</p>
@@ -386,15 +443,15 @@ const App: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">الأسئلة الشائعة</h2>
           <div className="space-y-4">
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-white/10 transition-colors">
               <h3 className="text-lg font-bold text-white mb-2">هل الخدمة مجانية؟</h3>
               <p className="text-slate-400">نعم، يمكنك استخدام الأداة لتحويل الشعارات مجاناً تماماً لأغراض العرض والتجربة.</p>
             </div>
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-white/10 transition-colors">
               <h3 className="text-lg font-bold text-white mb-2">ما هي الصيغ المدعومة؟</h3>
               <p className="text-slate-400">ندعم جميع صيغ الصور الشائعة مثل PNG (المفضلة للشفافية)، JPG، و WEBP.</p>
             </div>
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-white/10 transition-colors">
               <h3 className="text-lg font-bold text-white mb-2">كيف أحصل على أفضل نتيجة؟</h3>
               <p className="text-slate-400">للحصول على أفضل النتائج، استخدم شعاراً عالي الدقة، ويفضل أن يكون بخلفية شفافة أو بيضاء نقية.</p>
             </div>
