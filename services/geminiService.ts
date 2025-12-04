@@ -10,13 +10,17 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
  * @param mimeType The mime type of the source image.
  * @param stylePrompt The specific prompt instruction for the desired style.
  * @param removeBackground Whether to instruct the model to isolate the logo from its original background.
+ * @param negativePrompt Optional instructions on what to avoid in the generation.
+ * @param temperature Optional value (0.0 - 1.0) to control creativity/randomness.
  * @returns The base64 string of the generated image.
  */
 export const generate3DLogo = async (
   base64Image: string,
   mimeType: string,
   stylePrompt: string,
-  removeBackground: boolean
+  removeBackground: boolean,
+  negativePrompt?: string,
+  temperature?: number
 ): Promise<string> => {
   try {
     const model = 'gemini-2.5-flash-image'; // Using the standard flash image model for editing tasks
@@ -39,6 +43,12 @@ export const generate3DLogo = async (
       `;
     }
 
+    if (negativePrompt && negativePrompt.trim().length > 0) {
+      instructions += `
+      NEGATIVE PROMPT (Strictly avoid the following): ${negativePrompt}
+      `;
+    }
+
     instructions += `\nOutput a high-resolution, photorealistic image.`;
 
     const response = await ai.models.generateContent({
@@ -56,6 +66,9 @@ export const generate3DLogo = async (
           },
         ],
       },
+      config: {
+        temperature: temperature ?? 0.4, // Default to balanced if not provided
+      }
     });
 
     // Iterate through parts to find the image as per SDK guidelines

@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleOption } from '../types';
 import { STYLE_OPTIONS } from '../constants';
 
 interface StyleSelectorProps {
@@ -10,45 +9,54 @@ interface StyleSelectorProps {
 
 const StyleSelector: React.FC<StyleSelectorProps> = ({ selectedStyleId, onSelect, disabled }) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
       {STYLE_OPTIONS.map((style) => (
         <button
           key={style.id}
           disabled={disabled}
           onClick={() => onSelect(style.id)}
           className={`
-            relative overflow-hidden rounded-xl p-4 text-right transition-all duration-300 group
+            group relative overflow-hidden rounded-2xl p-4 text-right transition-all duration-300
+            flex flex-col h-full
             ${selectedStyleId === style.id 
-              ? 'ring-2 ring-primary ring-offset-2 ring-offset-darker bg-slate-800' 
-              : 'bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700'
+              ? 'ring-2 ring-primary ring-offset-2 ring-offset-darker bg-slate-800/80 shadow-lg shadow-primary/20 scale-[1.02]' 
+              : 'bg-slate-900/40 hover:bg-slate-800/60 border border-slate-800 hover:border-slate-600'
             }
             ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
           `}
         >
-          {/* Background Gradient overlay on hover/active */}
+          {/* Background Gradient overlay */}
           <div className={`
-            absolute inset-0 opacity-10 bg-gradient-to-br transition-opacity duration-300
+            absolute inset-0 opacity-0 transition-opacity duration-500 bg-gradient-to-br
             ${style.previewColor}
-            ${selectedStyleId === style.id ? 'opacity-20' : 'group-hover:opacity-20'}
+            ${selectedStyleId === style.id ? 'opacity-10' : 'group-hover:opacity-10'}
           `} />
 
-          <div className="relative z-10 flex flex-col h-full justify-between gap-3">
-            <div className="text-4xl mb-2 filter drop-shadow-lg">{style.icon}</div>
-            <div>
-              <h3 className="font-bold text-slate-100 text-lg">{style.name}</h3>
-              <p className="text-xs text-slate-400 mt-1 line-clamp-2">{style.description}</p>
-            </div>
-            
-            <div className={`
-              w-6 h-6 rounded-full border-2 ml-auto mt-2 flex items-center justify-center transition-colors
-              ${selectedStyleId === style.id ? 'border-primary bg-primary text-white' : 'border-slate-600'}
-            `}>
-              {selectedStyleId === style.id && (
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              )}
-            </div>
+          {/* Icon */}
+          <div className="relative z-10 text-3xl md:text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-300 origin-right">
+            {style.icon}
+          </div>
+
+          {/* Text Content */}
+          <div className="relative z-10 flex-grow">
+            <h3 className={`font-bold text-sm md:text-base mb-1 transition-colors ${selectedStyleId === style.id ? 'text-primary' : 'text-slate-200'}`}>
+              {style.name}
+            </h3>
+            <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed line-clamp-2">
+              {style.description}
+            </p>
+          </div>
+          
+          {/* Selection Indicator */}
+          <div className={`
+            absolute top-3 left-3 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300
+            ${selectedStyleId === style.id ? 'border-primary bg-primary text-white scale-100' : 'border-slate-700 scale-90 opacity-0 group-hover:opacity-100'}
+          `}>
+            {selectedStyleId === style.id && (
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            )}
           </div>
         </button>
       ))}

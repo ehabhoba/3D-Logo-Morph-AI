@@ -27,8 +27,6 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onImageSelected, selectedImage,
     const reader = new FileReader();
     reader.onloadend = () => {
       const result = reader.result as string;
-      // Extract base64 and mime type
-      // result looks like "data:image/png;base64,....."
       const parts = result.split(',');
       const meta = parts[0];
       const base64 = parts[1];
@@ -56,30 +54,20 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onImageSelected, selectedImage,
     }
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-  };
-
   if (selectedImage) {
     return (
-      <div className="w-full max-w-md mx-auto relative group rounded-2xl overflow-hidden border-2 border-primary/50 shadow-2xl shadow-primary/20 transition-all duration-300">
+      <div className="w-full relative group rounded-3xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/10 transition-all duration-500 hover:shadow-primary/20 bg-slate-900/50">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
         <img 
           src={selectedImage} 
           alt="Uploaded Logo" 
-          className="w-full h-64 object-contain bg-slate-800/50 p-4" 
+          className="w-full h-64 object-contain p-8" 
         />
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+        <div className="absolute inset-0 bg-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-sm gap-4">
+          <p className="text-white font-medium">هل تريد تغيير الشعار؟</p>
           <button 
             onClick={onClear}
-            className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
+            className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-xl font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg"
           >
             حذف واستبدال
           </button>
@@ -89,15 +77,19 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onImageSelected, selectedImage,
   }
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full group">
       <div 
         className={`
-          relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300
-          ${dragActive ? 'border-primary bg-primary/10 scale-105' : 'border-slate-600 hover:border-slate-400 hover:bg-slate-800/50'}
+          relative border-2 border-dashed rounded-3xl p-10 text-center cursor-pointer transition-all duration-300
+          flex flex-col items-center justify-center min-h-[300px]
+          ${dragActive 
+            ? 'border-primary bg-primary/5 scale-[1.02]' 
+            : 'border-slate-700 hover:border-primary/50 hover:bg-slate-800/30'
+          }
         `}
-        onDragEnter={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
+        onDragEnter={() => setDragActive(true)}
+        onDragLeave={() => setDragActive(false)}
+        onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
       >
@@ -109,20 +101,43 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onImageSelected, selectedImage,
           onChange={handleChange}
         />
         
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-3xl">
-            📤
+        {/* Decorative background blurs */}
+        <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-primary/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </div>
+
+        <div className="relative z-10 flex flex-col items-center gap-6">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+            <svg className="w-10 h-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
           </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-200 mb-2">اضغط للرفع أو اسحب الملف هنا</h3>
-            <p className="text-slate-400 text-sm">PNG, JPG بحد أقصى {MAX_FILE_SIZE_MB} ميجابايت</p>
+          <div className="space-y-2">
+            <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
+              اضغط لرفع الشعار
+            </h3>
+            <p className="text-slate-400">
+              أو اسحب الملف وأفلته هنا
+            </p>
+          </div>
+          <div className="flex gap-3 text-xs text-slate-500 bg-slate-900/50 px-4 py-2 rounded-full border border-slate-800">
+            <span>PNG</span>
+            <span className="w-px h-3 bg-slate-700"></span>
+            <span>JPG</span>
+            <span className="w-px h-3 bg-slate-700"></span>
+            <span>WEBP</span>
+            <span className="w-px h-3 bg-slate-700"></span>
+            <span>Max {MAX_FILE_SIZE_MB}MB</span>
           </div>
         </div>
       </div>
       {error && (
-        <p className="text-red-400 text-sm text-center mt-3 bg-red-900/20 py-2 rounded-lg border border-red-900/50">
-          ⚠️ {error}
-        </p>
+        <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-400 animate-shake">
+          <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-sm font-medium">{error}</p>
+        </div>
       )}
     </div>
   );
