@@ -29,27 +29,41 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center relative z-50">
         {/* Logo Area */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          <div className="w-12 h-12 relative flex items-center justify-center filter drop-shadow-[0_0_10px_rgba(14,165,233,0.5)]">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+              <path d="M50 5L93.3013 30V80L50 105L6.69873 80V30L50 5Z" fill="url(#paint0_linear)" stroke="#38bdf8" strokeWidth="2"/>
+              <path d="M35 30H55C70 30 75 40 75 55C75 70 70 80 55 80H35V30Z" fill="url(#paint1_linear)" />
+              <path d="M35 30V80" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+              <defs>
+                <linearGradient id="paint0_linear" x1="50" y1="5" x2="50" y2="105" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#0ea5e9" stopOpacity="0.2"/>
+                  <stop offset="1" stopColor="#0f172a" stopOpacity="0.8"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear" x1="35" y1="30" x2="75" y2="80" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#38bdf8"/>
+                  <stop offset="1" stopColor="#0284c7"/>
+                </linearGradient>
+              </defs>
             </svg>
           </div>
-          <span className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">
-            3D Morph AI
-          </span>
+          <div className="flex flex-col">
+            <span className="text-2xl font-black tracking-tighter text-white">
+              DLogo <span className="text-primary">AI</span>
+            </span>
+            <span className="text-[10px] text-slate-400 font-medium tracking-wide">Brand Identity Platform</span>
+          </div>
         </div>
 
         {/* Navigation - Desktop */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <button onClick={() => scrollToSection('how-it-works')} className="hover:text-white transition-colors">كيف يعمل؟</button>
-          <button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors">المميزات</button>
-          <button onClick={() => scrollToSection('gallery')} className="hover:text-white transition-colors">معرض الأعمال</button>
-          <button onClick={() => scrollToSection('faq')} className="hover:text-white transition-colors">الأسئلة الشائعة</button>
+          <button onClick={() => scrollToSection('how-it-works')} className="hover:text-primary transition-colors">كيف يعمل؟</button>
+          <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors">المميزات</button>
+          <button onClick={() => scrollToSection('gallery')} className="hover:text-primary transition-colors">معرض الأعمال</button>
           <button 
             onClick={() => scrollToSection('workspace')}
-            className="px-5 py-2 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 text-white transition-all hover:scale-105 active:scale-95"
+            className="px-6 py-2.5 rounded-full bg-primary hover:bg-primary/90 text-white font-bold shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:-translate-y-0.5 active:scale-95"
           >
-            جرب الأداة
+            ابدأ التصميم مجاناً
           </button>
         </nav>
 
@@ -57,14 +71,13 @@ const Header: React.FC = () => {
         <button 
           className="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="القائمة"
         >
           {mobileMenuOpen ? (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
           )}
@@ -78,13 +91,12 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="flex flex-col p-4 space-y-4 text-center">
-          <button onClick={() => scrollToSection('workspace')} className="p-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white font-bold">
-            ابـدأ الآن 🚀
+          <button onClick={() => scrollToSection('workspace')} className="p-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white font-bold shadow-lg">
+            ابدأ مشروعك الآن 🚀
           </button>
           <button onClick={() => scrollToSection('how-it-works')} className="p-2 text-slate-300 hover:text-white border-b border-white/5">كيف يعمل؟</button>
           <button onClick={() => scrollToSection('features')} className="p-2 text-slate-300 hover:text-white border-b border-white/5">المميزات</button>
-          <button onClick={() => scrollToSection('gallery')} className="p-2 text-slate-300 hover:text-white border-b border-white/5">معرض الأعمال</button>
-          <button onClick={() => scrollToSection('faq')} className="p-2 text-slate-300 hover:text-white">الأسئلة الشائعة</button>
+          <button onClick={() => scrollToSection('gallery')} className="p-2 text-slate-300 hover:text-white">معرض الأعمال</button>
         </div>
       </div>
     </header>

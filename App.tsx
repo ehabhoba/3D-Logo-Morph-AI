@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import Header from './components/Header';
 import UploadArea from './components/UploadArea';
@@ -6,7 +7,7 @@ import ResultDisplay from './components/ResultDisplay';
 import LoadingState from './components/LoadingState';
 import { generate3DLogo } from './services/geminiService';
 import { AppState } from './types';
-import { STYLE_OPTIONS, HERO_TITLE, HERO_SUBTITLE } from './constants';
+import { STYLE_OPTIONS, HERO_TITLE, HERO_SUBTITLE, FEATURES, GALLERY_ITEMS, FAQS } from './constants';
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
@@ -29,7 +30,6 @@ const App: React.FC = () => {
     setAppState(AppState.READY);
     setGeneratedImage(null);
     setErrorMessage(null);
-    // Scroll a bit down to show styles
     setTimeout(() => {
         window.scrollBy({ top: 200, behavior: 'smooth' });
     }, 100);
@@ -50,7 +50,6 @@ const App: React.FC = () => {
     setAppState(AppState.GENERATING);
     setErrorMessage(null);
     
-    // Auto scroll to result area
     setTimeout(() => {
         resultSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
@@ -82,62 +81,49 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-dark overflow-x-hidden selection:bg-primary/30 selection:text-white">
       <Header />
       
-      {/* Background Ambience - Global */}
+      {/* Background Ambience */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px] animate-blob"></div>
-        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-[100px] animate-blob animation-delay-4000"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[150px] animate-blob"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/5 rounded-full blur-[150px] animate-blob animation-delay-2000"></div>
       </div>
 
       {/* HERO SECTION */}
-      <section className="relative z-10 pt-32 pb-20 px-4 md:px-8">
+      <section className="relative z-10 pt-36 pb-20 px-4 md:px-8">
         <div className="max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs md:text-sm text-primaryLight font-medium animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/50 border border-white/5 text-xs md:text-sm text-primaryLight font-medium animate-fade-in-up backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            تكنولوجيا Gemini 2.5 الجديدة
+            تكنولوجيا Gemini 2.5 Flash المتطورة
           </div>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-200 to-slate-500 leading-[1.1] tracking-tight drop-shadow-2xl">
-            حول شعارك إلى <br/>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent">تحفة فنية</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight drop-shadow-2xl">
+            {HERO_TITLE} <br/>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primaryLight to-secondary">
+              تصميم الهوية الكاملة
+            </span>
           </h1>
           
-          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            استخدم الذكاء الاصطناعي لتحويل الشعارات المسطحة إلى مجسمات ثلاثية الأبعاد، لافتات واقعية، وموك-أب احترافي بضغطة زر واحدة.
+          <p className="text-slate-400 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light">
+            {HERO_SUBTITLE}
+            <br className="hidden md:block"/>
+            اصنع واجهات المحلات، المطبوعات، والإعلانات بضغطة زر.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <button 
               onClick={() => document.getElementById('workspace')?.scrollIntoView({behavior: 'smooth'})}
-              className="px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:shadow-lg hover:shadow-primary/25 text-white font-bold rounded-2xl text-lg transition-all transform hover:-translate-y-1"
+              className="px-8 py-4 bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 text-white font-bold rounded-2xl text-lg transition-all transform hover:-translate-y-1"
             >
-              جرب الأداة مجاناً ✨
+              ابدأ مشروعك الآن ✨
             </button>
             <button 
-               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({behavior: 'smooth'})}
-               className="px-8 py-4 bg-slate-800/50 hover:bg-slate-800 text-white font-medium rounded-2xl text-lg border border-slate-700 transition-all backdrop-blur-md"
+               onClick={() => document.getElementById('features')?.scrollIntoView({behavior: 'smooth'})}
+               className="px-8 py-4 bg-surface hover:bg-slate-700 text-white font-medium rounded-2xl text-lg border border-white/5 transition-all"
             >
-              كيف يعمل؟
+              استكشف القوالب
             </button>
-          </div>
-
-          {/* Stats / Trust Badges */}
-          <div className="pt-12 flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-             <div className="text-center">
-                <div className="text-2xl font-bold text-white">+50K</div>
-                <div className="text-xs text-slate-500">شعار تم تحويله</div>
-             </div>
-             <div className="text-center">
-                <div className="text-2xl font-bold text-white">4K</div>
-                <div className="text-xs text-slate-500">دقة عالية</div>
-             </div>
-             <div className="text-center">
-                <div className="text-2xl font-bold text-white">100%</div>
-                <div className="text-xs text-slate-500">مجاني</div>
-             </div>
           </div>
         </div>
       </section>
@@ -146,20 +132,20 @@ const App: React.FC = () => {
       <section id="workspace" className="relative z-10 py-12 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="glass-panel rounded-[2.5rem] p-6 md:p-12 shadow-2xl ring-1 ring-white/10">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-2">مساحة العمل الإبداعية</h2>
-            <p className="text-slate-400">ابدأ برفع شعارك ودع السحر يحدث</p>
+            <h2 className="text-3xl font-bold text-white mb-2">استوديو التصميم</h2>
+            <p className="text-slate-400">ارفع الشعار واختر من بين أكثر من 20 تطبيق واقعي</p>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             
             {/* Left Column: Controls */}
-            <div className="lg:col-span-5 space-y-8">
+            <div className="lg:col-span-6 space-y-8">
               
               {/* Step 1 */}
               <div className="space-y-4">
-                 <div className="flex items-center gap-3 text-primaryLight">
-                   <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 border border-primary/20 text-sm font-bold">1</span>
-                   <span className="font-bold tracking-wide text-sm uppercase">رفع الملف</span>
+                 <div className="flex items-center gap-3 text-white">
+                   <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white text-sm font-bold">1</div>
+                   <h3 className="font-bold text-lg">رفع الشعار</h3>
                  </div>
                  <UploadArea 
                   onImageSelected={handleImageSelected} 
@@ -168,15 +154,15 @@ const App: React.FC = () => {
                 />
               </div>
 
-              {/* Step 2 & 3 (Only visible if image uploaded) */}
+              {/* Step 2 & 3 */}
               {originalImage && (
                 <div className="space-y-8 animate-fade-in-up">
                   
                   {/* Styles */}
                   <div className="space-y-4">
-                    <div className="flex items-center gap-3 text-secondary">
-                      <span className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary/10 border border-secondary/20 text-sm font-bold">2</span>
-                      <span className="font-bold tracking-wide text-sm uppercase">اختيار النمط</span>
+                    <div className="flex items-center gap-3 text-white">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary text-white text-sm font-bold">2</div>
+                      <h3 className="font-bold text-lg">اختيار التطبيق</h3>
                     </div>
                     <StyleSelector 
                       selectedStyleId={selectedStyleId}
@@ -186,9 +172,17 @@ const App: React.FC = () => {
                   </div>
 
                   {/* Settings */}
-                  <div className="bg-slate-900/40 p-5 rounded-2xl border border-white/5 backdrop-blur-sm">
-                    <label className="flex items-start gap-4 cursor-pointer group">
-                      <div className="relative flex items-center pt-1">
+                  <div className="bg-surface p-5 rounded-2xl border border-white/5">
+                    <label className="flex items-center justify-between cursor-pointer group">
+                      <div className="flex-1">
+                        <span className="block font-bold text-white group-hover:text-primary transition-colors">
+                          إزالة الخلفية الذكي
+                        </span>
+                        <span className="text-xs text-slate-400 mt-1">
+                          تحسين دمج الشعار مع القالب بإزالة الخلفية الأصلية
+                        </span>
+                      </div>
+                      <div className="relative flex items-center">
                         <input 
                           type="checkbox" 
                           className="peer sr-only"
@@ -196,29 +190,19 @@ const App: React.FC = () => {
                           onChange={(e) => setRemoveBackground(e.target.checked)}
                           disabled={appState === AppState.GENERATING}
                         />
-                         <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[6px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                      </div>
-                      <div className="flex-1">
-                        <span className="block font-bold text-slate-200 group-hover:text-primary transition-colors">
-                          وضع الشفافية الذكي
-                        </span>
-                        <span className="text-xs text-slate-500 mt-1 block leading-relaxed">
-                          فصل الشعار عن خلفيته الأصلية لدمجه بشكل مثالي في القالب.
-                        </span>
+                         <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                       </div>
                     </label>
                   </div>
 
                   {/* Advanced Section */}
-                  <div className="border border-white/5 rounded-2xl overflow-hidden bg-white/[0.02]">
+                  <div className="border border-white/5 rounded-2xl overflow-hidden bg-black/20">
                     <button
                       onClick={() => setShowAdvanced(!showAdvanced)}
                       disabled={appState === AppState.GENERATING}
                       className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors"
                     >
-                      <div className="flex items-center gap-2 text-slate-400 font-medium text-sm">
-                        <span>إعدادات متقدمة</span>
-                      </div>
+                      <span className="text-slate-400 font-medium text-sm">خيارات متقدمة (Creative Control)</span>
                       <svg 
                         className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${showAdvanced ? 'rotate-180' : ''}`} 
                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -230,27 +214,20 @@ const App: React.FC = () => {
                     {showAdvanced && (
                       <div className="p-5 border-t border-white/5 space-y-6 animate-fade-in">
                         <div>
-                          <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">
-                            توجيهات سلبية
-                          </label>
+                          <label className="block text-xs font-bold text-slate-400 mb-2">تعليمات سلبية (Negative Prompt)</label>
                           <textarea
                             value={negativePrompt}
                             onChange={(e) => setNegativePrompt(e.target.value)}
                             disabled={appState === AppState.GENERATING}
-                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 outline-none transition-all resize-none"
-                            placeholder="ما الذي تريد تجنبه؟"
+                            className="w-full bg-dark border border-white/10 rounded-xl p-3 text-sm text-white focus:border-primary outline-none transition-all resize-none"
+                            placeholder="مثال: لا تقم بتغيير ألوان الشعار..."
                             rows={2}
                           />
                         </div>
-
                         <div>
                           <div className="flex justify-between items-center mb-2">
-                            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                              مستوى الابتكار
-                            </label>
-                            <span className="text-xs font-mono bg-white/10 px-2 py-1 rounded text-primaryLight">
-                              {temperature}
-                            </span>
+                            <label className="text-xs font-bold text-slate-400">الإبداع (Temperature)</label>
+                            <span className="text-xs font-mono bg-white/10 px-2 py-1 rounded text-primaryLight">{temperature}</span>
                           </div>
                           <input
                             type="range"
@@ -260,7 +237,7 @@ const App: React.FC = () => {
                             value={temperature}
                             onChange={(e) => setTemperature(parseFloat(e.target.value))}
                             disabled={appState === AppState.GENERATING}
-                            className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary"
+                            className="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary"
                           />
                         </div>
                       </div>
@@ -275,7 +252,7 @@ const App: React.FC = () => {
                       w-full py-5 rounded-2xl font-bold text-lg shadow-2xl transition-all duration-300 transform relative overflow-hidden group
                       ${appState === AppState.GENERATING 
                         ? 'bg-slate-800 text-slate-500 cursor-not-allowed' 
-                        : 'bg-gradient-to-r from-primary via-indigo-500 to-secondary text-white hover:scale-[1.01] hover:shadow-primary/30'
+                        : 'bg-gradient-to-r from-primary to-secondary text-white hover:scale-[1.01] hover:shadow-primary/30'
                       }
                     `}
                   >
@@ -283,27 +260,25 @@ const App: React.FC = () => {
                       {appState === AppState.GENERATING ? (
                         <>
                           <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                          <span>جارٍ المعالجة...</span>
+                          <span>جاري العمل على التصميم...</span>
                         </>
                       ) : (
                         <>
                           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                           </svg>
-                          إنشاء التصميم الآن
+                          تنفيذ التصميم
                         </>
                       )}
                     </div>
-                    {/* Shine effect */}
-                    {!appState && <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />}
                   </button>
                 </div>
               )}
             </div>
 
             {/* Right Column: Output */}
-            <div className="lg:col-span-7 sticky top-24" ref={resultSectionRef}>
-              <div className="min-h-[500px] h-full rounded-[2rem] bg-slate-900/50 border border-slate-800/50 flex flex-col relative overflow-hidden">
+            <div className="lg:col-span-6 sticky top-24" ref={resultSectionRef}>
+              <div className="min-h-[600px] h-full rounded-[2rem] bg-surface/50 border border-white/5 flex flex-col relative overflow-hidden shadow-inner">
                  {appState === AppState.GENERATING && originalImage ? (
                     <LoadingState originalImage={originalImage.base64} />
                  ) : appState === AppState.SUCCESS && generatedImage && originalImage ? (
@@ -313,15 +288,14 @@ const App: React.FC = () => {
                      styleName={STYLE_OPTIONS.find(s => s.id === selectedStyleId)?.name || 'Custom'}
                    />
                  ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center opacity-60">
-                      <div className="w-32 h-32 mb-8 relative">
-                        <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
-                        <img src="https://cdn-icons-png.flaticon.com/512/3159/3159301.png" className="w-full h-full object-contain relative z-10 opacity-50 invert" alt="Placeholder" />
+                    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center opacity-40">
+                      <div className="w-40 h-40 mb-6 bg-slate-800 rounded-full flex items-center justify-center">
+                        <svg className="w-20 h-20 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
                       </div>
-                      <h3 className="text-2xl font-bold text-white mb-3">النتيجة ستظهر هنا</h3>
-                      <p className="text-slate-400 max-w-sm mx-auto">
-                        شاهد شعارك يتحول إلى واقع بأعلى دقة وتفاصيل مذهلة.
-                      </p>
+                      <h3 className="text-xl font-bold text-white mb-2">معاينة التصميم</h3>
+                      <p className="text-slate-400">ستظهر النتيجة النهائية هنا بجودة عالية</p>
                     </div>
                  )}
               </div>
@@ -332,147 +306,130 @@ const App: React.FC = () => {
       </section>
 
       {/* HOW IT WORKS SECTION */}
-      <section id="how-it-works" className="py-20 px-4 md:px-8 bg-surface/30">
+      <section id="how-it-works" className="py-20 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">كيف يعمل؟</h2>
-             <p className="text-slate-400 text-lg max-w-2xl mx-auto">ثلاث خطوات بسيطة تفصلك عن تصميم أحلامك</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 relative">
-             {/* Connecting Line (Desktop) */}
-             <div className="hidden md:block absolute top-12 right-1/6 left-1/6 h-0.5 bg-gradient-to-l from-primary/0 via-primary/30 to-primary/0 z-0"></div>
-
-             {/* Step 1 */}
-             <div className="relative z-10 flex flex-col items-center text-center">
-               <div className="w-24 h-24 rounded-3xl bg-slate-800 border border-slate-700 shadow-xl flex items-center justify-center text-4xl mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
-                 <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                 📤
-               </div>
-               <h3 className="text-xl font-bold text-white mb-2">1. ارفع شعارك</h3>
-               <p className="text-slate-400 px-4">قم برفع صورة الشعار (PNG أو JPG) بجودة عالية.</p>
-             </div>
-
-             {/* Step 2 */}
-             <div className="relative z-10 flex flex-col items-center text-center">
-               <div className="w-24 h-24 rounded-3xl bg-slate-800 border border-slate-700 shadow-xl flex items-center justify-center text-4xl mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
-                 <div className="absolute inset-0 bg-secondary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                 🎨
-               </div>
-               <h3 className="text-xl font-bold text-white mb-2">2. اختر النمط</h3>
-               <p className="text-slate-400 px-4">اختر من بين 12 قالب احترافي (معدن، خشب، نيون، والمزيد).</p>
-             </div>
-
-             {/* Step 3 */}
-             <div className="relative z-10 flex flex-col items-center text-center">
-               <div className="w-24 h-24 rounded-3xl bg-slate-800 border border-slate-700 shadow-xl flex items-center justify-center text-4xl mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
-                 <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                 ✨
-               </div>
-               <h3 className="text-xl font-bold text-white mb-2">3. توليد فوري</h3>
-               <p className="text-slate-400 px-4">دع الذكاء الاصطناعي يعالج الإضاءة والظلال ويخرج لك النتيجة.</p>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURES SECTION (SEO Rich) */}
-      <section id="features" className="py-20 px-4 md:px-8 border-y border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">لماذا هذه الأداة هي الأفضل؟</h2>
-             <p className="text-slate-400 text-lg max-w-2xl mx-auto">نستخدم أحدث نماذج الذكاء الاصطناعي التوليدي لضمان نتائج لا يمكن تفريقها عن الحقيقة.</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">كيف يعمل؟</h2>
+            <p className="text-slate-400 text-lg">ثلاث خطوات بسيطة تفصلك عن هويتك البصرية الجديدة</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-primary/30 transition-colors hover:bg-white/10">
-              <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center text-3xl mb-6">🚀</div>
-              <h3 className="text-xl font-bold text-white mb-3">سرعة فائقة</h3>
-              <p className="text-slate-400 leading-relaxed">احصل على تصميمات معقدة وموك-أب احترافي في ثوانٍ معدودة بدلاً من ساعات العمل على برامج التصميم.</p>
+            <div className="bg-surface/30 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center relative group hover:bg-surface/50 transition-all">
+              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+                📤
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">1. ارفع الشعار</h3>
+              <p className="text-slate-400 leading-relaxed">قم برفع شعارك بصيغة PNG أو JPG. يفضل أن يكون الشعار بخلفية شفافة للحصول على أفضل النتائج.</p>
             </div>
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-secondary/30 transition-colors hover:bg-white/10">
-              <div className="w-14 h-14 rounded-2xl bg-secondary/20 flex items-center justify-center text-3xl mb-6">💎</div>
-              <h3 className="text-xl font-bold text-white mb-3">جودة 4K</h3>
-              <p className="text-slate-400 leading-relaxed">نقوم بتوليد صور عالية الدقة تصلح للطباعة، العرض على الشاشات الكبيرة، والاستخدام التجاري.</p>
+            
+            <div className="bg-surface/30 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center relative group hover:bg-surface/50 transition-all">
+              <div className="hidden md:block absolute top-1/2 -right-6 w-12 h-0.5 bg-gradient-to-l from-transparent to-primary/50"></div>
+              <div className="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+                🎨
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">2. اختر القالب</h3>
+              <p className="text-slate-400 leading-relaxed">تصفح مكتبة القوالب الضخمة التي تضم المكاتب، الملابس، اللافتات الخارجية، والمنتجات.</p>
             </div>
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-accent/30 transition-colors hover:bg-white/10">
-              <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-6">🧠</div>
-              <h3 className="text-xl font-bold text-white mb-3">ذكاء اصطناعي</h3>
-              <p className="text-slate-400 leading-relaxed">يفهم النموذج سياق الشعار، الخامة المطلوبة (ذهب، خشب، نيون) ويطبق الإضاءة والظلال بفيزيائية دقيقة.</p>
+
+            <div className="bg-surface/30 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center relative group hover:bg-surface/50 transition-all">
+              <div className="hidden md:block absolute top-1/2 -right-6 w-12 h-0.5 bg-gradient-to-l from-transparent to-secondary/50"></div>
+              <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+                ✨
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">3. استلم التصميم</h3>
+              <p className="text-slate-400 leading-relaxed">يقوم الذكاء الاصطناعي بمعالجة الصورة ودمجها في القالب المختار في ثوانٍ معدودة.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* GALLERY SECTION */}
-      <section id="gallery" className="py-20 px-4 md:px-8">
+      {/* FEATURES SECTION */}
+      <section id="features" className="py-20 px-4 bg-dark/50 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">معرض الأعمال</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
-               <img src="https://img.freepik.com/free-psd/3d-logo-mockup-modern-building_145275-236.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 1" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                 <span className="text-white text-sm font-bold">واجهات مباني</span>
-               </div>
-            </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
-               <img src="https://img.freepik.com/free-psd/luxurious-metallic-logo-mockup_145275-385.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 2" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                 <span className="text-white text-sm font-bold">معدن فاخر</span>
-               </div>
-            </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
-               <img src="https://img.freepik.com/free-psd/embossed-paper-logo-mockup_145275-181.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 3" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                 <span className="text-white text-sm font-bold">مطبوعات ورقية</span>
-               </div>
-            </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-slate-800 hover:scale-[1.02] transition-transform duration-300 relative group">
-               <img src="https://img.freepik.com/free-psd/3d-glass-window-logo-mockup_125540-545.jpg" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Example 4" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                 <span className="text-white text-sm font-bold">زجاج وإضاءة</span>
-               </div>
-            </div>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">مميزات المنصة</h2>
+            <p className="text-slate-400 text-lg">أدوات احترافية مصممة للمصممين وأصحاب الأعمال</p>
           </div>
-          <p className="text-center text-slate-500 mt-6 text-sm">نماذج تم إنشاؤها باستخدام تقنيات مماثلة</p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {FEATURES.map((feature, idx) => (
+              <div key={idx} className="bg-gradient-to-b from-surface/40 to-surface/10 p-6 rounded-3xl border border-white/5 hover:border-primary/30 transition-all hover:-translate-y-2">
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-sm text-slate-400">{feature.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* FAQ SECTION (SEO Goldmine) */}
-      <section id="faq" className="py-20 px-4 md:px-8 bg-surface/30">
+      {/* GALLERY SHOWCASE */}
+      <section id="gallery" className="py-20 px-4 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4">معرض الأعمال</h2>
+              <p className="text-slate-400 text-lg">نتائج حقيقية تم إنشاؤها باستخدام DLogo AI</p>
+            </div>
+            <button className="text-primary hover:text-white font-bold flex items-center gap-2 transition-colors">
+              مشاهدة المزيد <span className="text-xl">←</span>
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {GALLERY_ITEMS.map((src, idx) => (
+              <div key={idx} className={`group relative overflow-hidden rounded-2xl ${idx === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+                <div className="absolute inset-0 bg-slate-900 animate-pulse"></div>
+                <img 
+                  src={src} 
+                  alt={`Gallery item ${idx}`}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-white font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    تم الإنشاء بواسطة DLogo AI
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section className="py-20 px-4 bg-surface/20 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">الأسئلة الشائعة</h2>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">الأسئلة الشائعة</h2>
+          </div>
+          
           <div className="space-y-4">
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-white/10 transition-colors">
-              <h3 className="text-lg font-bold text-white mb-2">هل الخدمة مجانية؟</h3>
-              <p className="text-slate-400">نعم، يمكنك استخدام الأداة لتحويل الشعارات مجاناً تماماً لأغراض العرض والتجربة.</p>
-            </div>
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-white/10 transition-colors">
-              <h3 className="text-lg font-bold text-white mb-2">ما هي الصيغ المدعومة؟</h3>
-              <p className="text-slate-400">ندعم جميع صيغ الصور الشائعة مثل PNG (المفضلة للشفافية)، JPG، و WEBP.</p>
-            </div>
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:bg-white/10 transition-colors">
-              <h3 className="text-lg font-bold text-white mb-2">كيف أحصل على أفضل نتيجة؟</h3>
-              <p className="text-slate-400">للحصول على أفضل النتائج، استخدم شعاراً عالي الدقة، ويفضل أن يكون بخلفية شفافة أو بيضاء نقية.</p>
-            </div>
+            {FAQS.map((faq, idx) => (
+              <div key={idx} className="bg-surface/50 border border-white/5 rounded-2xl p-6 hover:bg-surface/70 transition-colors">
+                <h3 className="text-lg font-bold text-white mb-2">{faq.q}</h3>
+                <p className="text-slate-400">{faq.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 border-t border-white/5 bg-black/20 text-center">
+      <footer className="py-12 border-t border-white/5 bg-black/40 text-center relative z-10">
         <div className="max-w-7xl mx-auto px-4">
-           <div className="flex items-center justify-center gap-2 mb-4 opacity-50">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary"></div>
-              <span className="font-bold text-xl text-white">3D Morph AI</span>
+           <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="font-black text-2xl text-white">DLogo <span className="text-primary">AI</span></span>
            </div>
-           <p className="text-slate-500 mb-8">أداة المستقبل لتصميم الهوية البصرية والموك-أب.</p>
-           <div className="flex justify-center gap-6 text-sm text-slate-400">
-             <a href="#" className="hover:text-white transition-colors">سياسة الخصوصية</a>
-             <a href="#" className="hover:text-white transition-colors">شروط الاستخدام</a>
-             <a href="#" className="hover:text-white transition-colors">اتصل بنا</a>
+           <p className="text-slate-500 mb-8 max-w-md mx-auto">
+             منصة متكاملة مدعومة من Google Gemini لإنشاء الهوية البصرية والموك-أب الاحترافي.
+           </p>
+           <div className="flex justify-center gap-6 text-sm text-slate-400 mb-8">
+             <a href="#" className="hover:text-white">سياسة الخصوصية</a>
+             <a href="#" className="hover:text-white">الشروط والأحكام</a>
+             <a href="#" className="hover:text-white">اتصل بنا</a>
            </div>
-           <p className="text-slate-700 text-xs mt-8">© {new Date().getFullYear()} جميع الحقوق محفوظة.</p>
+           <p className="text-slate-700 text-xs">© {new Date().getFullYear()} DLogo AI. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -3,8 +3,8 @@ export interface StyleOption {
   name: string;
   description: string;
   promptModifier: string;
-  icon: string; // Emoji or generic icon name
-  previewColor: string;
+  category: string;
+  previewImage: string; // URL for the thumbnail
 }
 
 export interface GeneratedResult {
@@ -15,8 +15,8 @@ export interface GeneratedResult {
 
 export enum AppState {
   IDLE = 'IDLE',
-  UPLOADING = 'UPLOADING', // Processing base64
-  READY = 'READY', // Image loaded
+  UPLOADING = 'UPLOADING',
+  READY = 'READY',
   GENERATING = 'GENERATING',
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR'

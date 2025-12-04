@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="حول شعارك ثنائي الأبعاد إلى تصميم 3D وموك أب احترافي مجاناً باستخدام الذكاء الاصطناعي. أداة مثالية للمصممين وأصحاب العلامات التجارية." />
-    <meta name="keywords" content="تصميم شعار 3D, موك اب مجاني, تحويل الشعار بالذكاء الاصطناعي, AI Logo Maker, Mockup Generator" />
-    <title>3D Logo Morph AI | صانع الموك-أب الذكي</title>
+    <meta name="description" content="DLogo AI - المنصة المتكاملة لتحويل الشعارات إلى هوية بصرية كاملة، موك أب 3D، لافتات، ومنتجات باستخدام الذكاء الاصطناعي." />
+    <meta name="keywords" content="DLogo AI, تصميم شعار 3D, هوية بصرية, موك اب مجاني, تحويل الشعار, ذكاء اصطناعي, لافتات محلات" />
+    <title>DLogo AI | منصة الهوية البصرية المتكاملة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +18,19 @@
               sans: ['Cairo', 'sans-serif'],
             },
             colors: {
-              primary: '#4f46e5', // Indigo 600
-              primaryLight: '#818cf8',
-              secondary: '#9333ea', // Purple 600
-              accent: '#f43f5e', // Rose 500
-              dark: '#0B0F19', // Deep dark blue
-              surface: '#111827', // Gray 900
-              glass: 'rgba(17, 24, 39, 0.7)',
+              primary: '#0ea5e9',
+              primaryLight: '#38bdf8',
+              secondary: '#6366f1',
+              accent: '#8b5cf6',
+              dark: '#0f172a',
+              surface: '#1e293b',
             },
             animation: {
               'blob': 'blob 7s infinite',
-              'float': 'float 6s ease-in-out infinite',
-              'shine': 'shine 1s',
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'fade-in-up': 'fadeInUp 0.7s ease-out',
               'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
-              'fade-in': 'fade-in 0.5s ease-out',
-              'fade-in-up': 'fade-in-up 0.5s ease-out',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
               blob: {
@@ -41,79 +39,57 @@
                 '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                 '100%': { transform: 'translate(0px, 0px) scale(1)' },
               },
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              shine: {
-                '100%': { left: '125%' },
-              },
-              shake: {
-                '0%, 100%': { transform: 'translateX(0)' },
-                '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-4px)' },
-                '20%, 40%, 60%, 80%': { transform: 'translateX(4px)' },
-              },
-              'fade-in': {
+              fadeIn: {
                 '0%': { opacity: '0' },
                 '100%': { opacity: '1' },
               },
-              'fade-in-up': {
+              fadeInUp: {
                 '0%': { opacity: '0', transform: 'translateY(20px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
-            }
+              },
+              shake: {
+                '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                '40%, 60%': { transform: 'translate3d(4px, 0, 0)' },
+              },
+            },
           },
         },
       }
     </script>
     <style>
-      body {
-        font-family: 'Cairo', sans-serif;
-        background-color: #0B0F19;
-        color: #f8fafc;
-        overflow-x: hidden;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0f172a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
-      }
       .glass-panel {
-        background: rgba(30, 41, 59, 0.4);
+        background: rgba(30, 41, 59, 0.7);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
       }
-      .text-glow {
-        text-shadow: 0 0 40px rgba(79, 70, 229, 0.4);
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .mask-gradient {
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
       }
     </style>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "@google/genai": "https://esm.sh/@google/genai@0.1.1",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.0/client",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0"
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
   }
 }
 </script>
 </head>
-  <body>
+  <body class="bg-dark text-white overflow-x-hidden">
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
